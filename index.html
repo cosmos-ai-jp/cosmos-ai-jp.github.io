@@ -1,0 +1,662 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>株式会社秋桜|AI導入支援・AI人材育成</title>
+<style>
+  :root {
+    --paper: #FFFFFF;
+    --sky: #FFF4F8;
+    --ink: #3D3844;
+    --ink-soft: #8A8290;
+    --pink: #FF7FA6;
+    --pink-deep: #F5568B;
+    --pink-wash: #FFF1F6;
+    --hair: #FFE1EC;
+    --serif: "Hiragino Mincho ProN", "Yu Mincho", "YuMincho", "Noto Serif JP", serif;
+    --sans: "Hiragino Kaku Gothic ProN", "Hiragino Sans", "Yu Gothic", "YuGothic", "Noto Sans JP", sans-serif;
+  }
+  /* このサイトは「明るい門出」がコンセプトのため、常にライト配色で表示する
+     (ダークモード時も白×桜のまま) */
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+  }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 0.04em;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  /* ---- 共通 ---- */
+  .wrap { max-width: 1040px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 96px 0; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.28em;
+    color: var(--pink-deep);
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+  }
+  .eyebrow::before {
+    content: "";
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--pink);
+    opacity: .7;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(26px, 3.4vw, 34px);
+    line-height: 1.6;
+    letter-spacing: 0.06em;
+    text-wrap: balance;
+    margin-bottom: 28px;
+  }
+  h3 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: 0.06em;
+  }
+  p { max-width: 38em; }
+  .lead { color: var(--ink-soft); }
+
+  a { color: var(--pink-deep); }
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--pink);
+    outline-offset: 3px;
+  }
+
+  .btn {
+    display: inline-block;
+    font-family: var(--sans);
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-decoration: none;
+    padding: 15px 44px;
+    border-radius: 999px;
+    border: 1.5px solid var(--pink);
+    color: var(--pink-deep);
+    background: var(--paper);
+    transition: background .25s, color .25s, transform .25s, box-shadow .25s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 26px rgba(255, 127, 166, .3); }
+  .btn--fill {
+    background: linear-gradient(120deg, var(--pink) 0%, var(--pink-deep) 100%);
+    border-color: transparent;
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(255, 127, 166, .4);
+  }
+  .btn--fill:hover { color: #fff; }
+  @media (prefers-reduced-motion: reduce) {
+    .btn { transition: none; }
+    .btn:hover { transform: none; }
+  }
+
+  /* ---- ヘッダー ---- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    background: color-mix(in srgb, var(--paper) 90%, transparent);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--hair);
+  }
+  .header-in {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 14px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand svg { width: 26px; height: 26px; }
+  .brand span {
+    font-family: var(--serif);
+    font-size: 18px;
+    letter-spacing: 0.12em;
+  }
+  nav ul {
+    display: flex;
+    gap: 26px;
+    list-style: none;
+  }
+  nav a {
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    color: var(--ink-soft);
+  }
+  nav a:hover { color: var(--pink-deep); }
+  @media (max-width: 720px) { nav { display: none; } }
+
+  /* ---- ヒーロー ---- */
+  .hero {
+    padding: 130px 0 120px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--sky) 0%, var(--paper) 78%);
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+  h1 {
+    font-family: var(--serif);
+    font-weight: 600;
+    font-size: clamp(30px, 4.6vw, 48px);
+    line-height: 1.8;
+    letter-spacing: 0.08em;
+    text-wrap: balance;
+    margin-bottom: 26px;
+  }
+  h1 em { font-style: normal; color: var(--pink-deep); }
+  .hero .lead { margin-bottom: 40px; }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-art {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+  }
+  .tate {
+    writing-mode: vertical-rl;
+    font-family: var(--serif);
+    font-size: clamp(40px, 6vw, 64px);
+    letter-spacing: 0.5em;
+    color: var(--pink);
+    opacity: .5;
+    user-select: none;
+  }
+  .flower { width: clamp(120px, 16vw, 180px); height: auto; }
+  @media (max-width: 720px) {
+    .hero { padding: 84px 0 72px; }
+    .hero-grid { grid-template-columns: 1fr; }
+    .hero-art { justify-content: flex-end; margin-top: 8px; }
+  }
+
+  /* ---- 舞う花びら ---- */
+  .petals { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+  .petal {
+    position: absolute;
+    top: -6%;
+    width: 18px;
+    height: 18px;
+    opacity: 0;
+    animation: fall linear infinite;
+  }
+  .petal svg { width: 100%; height: 100%; display: block; }
+  @keyframes fall {
+    0%   { transform: translate(0, -4vh) rotate(0deg); opacity: 0; }
+    8%   { opacity: .85; }
+    85%  { opacity: .85; }
+    100% { transform: translate(-14vw, 108vh) rotate(300deg); opacity: 0; }
+  }
+  .petal:nth-child(1)  { left: 12%; animation-duration: 13s; animation-delay: -2s;  width: 15px; }
+  .petal:nth-child(2)  { left: 26%; animation-duration: 17s; animation-delay: -9s;  width: 20px; }
+  .petal:nth-child(3)  { left: 41%; animation-duration: 14s; animation-delay: -5s;  width: 13px; }
+  .petal:nth-child(4)  { left: 55%; animation-duration: 19s; animation-delay: -12s; width: 17px; }
+  .petal:nth-child(5)  { left: 68%; animation-duration: 15s; animation-delay: -7s;  width: 21px; }
+  .petal:nth-child(6)  { left: 79%; animation-duration: 12s; animation-delay: -3s;  width: 14px; }
+  .petal:nth-child(7)  { left: 88%; animation-duration: 18s; animation-delay: -14s; width: 18px; }
+  .petal:nth-child(8)  { left: 96%; animation-duration: 16s; animation-delay: -10s; width: 15px; }
+  @media (prefers-reduced-motion: reduce) { .petal { display: none; } }
+
+  /* ---- サービス ---- */
+  .svc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 48px;
+  }
+  .svc {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    border-radius: 18px;
+    padding: 34px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    box-shadow: 0 3px 18px rgba(255, 127, 166, .07);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .svc:hover { transform: translateY(-4px); box-shadow: 0 14px 34px rgba(255, 127, 166, .18); }
+  @media (prefers-reduced-motion: reduce) { .svc { transition: none; } .svc:hover { transform: none; } }
+  .svc h3 { color: var(--ink); }
+  .svc p { font-size: 14.5px; line-height: 1.95; color: var(--ink-soft); }
+  .svc .tag {
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: var(--pink);
+    font-weight: 600;
+  }
+
+  /* ---- スクール ---- */
+  .school { background: linear-gradient(180deg, var(--pink-wash) 0%, var(--sky) 100%); }
+  .school-grid {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .school ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: 26px 0 30px;
+  }
+  .school li {
+    padding-left: 26px;
+    position: relative;
+    line-height: 1.9;
+  }
+  .school li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.72em;
+    width: 12px;
+    height: 12px;
+    border-radius: 50% 50% 50% 0;
+    background: var(--pink);
+    opacity: .75;
+    transform: rotate(-45deg);
+  }
+  .quote {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    border-radius: 18px;
+    padding: 32px 30px;
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 2.1;
+    box-shadow: 0 3px 18px rgba(255, 127, 166, .09);
+  }
+  .quote small {
+    display: block;
+    margin-top: 12px;
+    font-family: var(--sans);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+  }
+  @media (max-width: 800px) { .school-grid { grid-template-columns: 1fr; } }
+
+  /* ---- 選ばれる理由 ---- */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 48px;
+    margin-top: 48px;
+  }
+  .why h3 { margin-bottom: 14px; }
+  .why h3::before {
+    content: "";
+    display: block;
+    width: 38px;
+    height: 3px;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--pink-wash));
+    margin-bottom: 18px;
+  }
+  .why p { font-size: 14.5px; color: var(--ink-soft); }
+
+  /* ---- 流れ ---- */
+  .flow { background: var(--pink-wash); }
+  .flow-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 24px;
+    margin-top: 48px;
+    counter-reset: step;
+  }
+  .step {
+    background: var(--paper);
+    border: 1px solid var(--hair);
+    border-radius: 18px;
+    padding: 30px 26px;
+    box-shadow: 0 3px 18px rgba(255, 127, 166, .07);
+  }
+  .step::before {
+    counter-increment: step;
+    content: counter(step);
+    font-family: var(--serif);
+    font-size: 22px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin-bottom: 16px;
+    font-variant-numeric: tabular-nums;
+    box-shadow: 0 6px 16px rgba(255, 127, 166, .4);
+  }
+  .step h3 { font-size: 17px; margin-bottom: 10px; }
+  .step p { font-size: 14px; line-height: 1.9; color: var(--ink-soft); }
+
+  /* ---- 会社概要 ---- */
+  .about table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 40px;
+    max-width: 720px;
+  }
+  .about th, .about td {
+    text-align: left;
+    padding: 18px 8px;
+    border-bottom: 1px solid var(--hair);
+    font-weight: normal;
+    vertical-align: top;
+  }
+  .about th {
+    width: 9em;
+    color: var(--ink-soft);
+    font-size: 14px;
+    letter-spacing: 0.1em;
+  }
+  .tbd {
+    color: var(--ink-soft);
+    border-bottom: 1px dotted var(--pink);
+  }
+
+  /* ---- お問い合わせ ---- */
+  .contact { text-align: center; background: linear-gradient(180deg, var(--paper) 0%, var(--sky) 100%); }
+  .contact .eyebrow { justify-content: center; }
+  .contact h2 { margin-bottom: 16px; }
+  .contact .lead { margin: 0 auto 40px; }
+  .contact-note { margin: 28px auto 0; font-size: 13px; color: var(--ink-soft); }
+  .mail-alt {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    font-size: 13px;
+    color: var(--pink-deep);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    cursor: pointer;
+  }
+  .mail-alt:focus-visible { outline: 2px solid var(--pink); outline-offset: 3px; }
+  .mail-addr { font-weight: 600; color: var(--ink); user-select: all; }
+
+  footer {
+    border-top: 1px solid var(--hair);
+    padding: 34px 24px;
+    text-align: center;
+    font-size: 12px;
+    letter-spacing: 0.14em;
+    color: var(--ink-soft);
+  }
+
+  /* ---- 出現アニメーション ---- */
+  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.on { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+  }
+</style>
+
+</head>
+<body>
+<header>
+  <div class="header-in">
+    <a class="brand" href="#top" aria-label="株式会社秋桜 トップへ">
+      <svg viewBox="0 0 100 100" aria-hidden="true">
+        <g fill="none" stroke="var(--pink)" stroke-width="3">
+          <g id="petal">
+            <path d="M50 50 C 42 30, 42 16, 50 6 C 58 16, 58 30, 50 50 Z"/>
+          </g>
+          <use href="#petal" transform="rotate(45 50 50)"/>
+          <use href="#petal" transform="rotate(90 50 50)"/>
+          <use href="#petal" transform="rotate(135 50 50)"/>
+          <use href="#petal" transform="rotate(180 50 50)"/>
+          <use href="#petal" transform="rotate(225 50 50)"/>
+          <use href="#petal" transform="rotate(270 50 50)"/>
+          <use href="#petal" transform="rotate(315 50 50)"/>
+          <circle cx="50" cy="50" r="7" fill="var(--pink)" stroke="none"/>
+        </g>
+      </svg>
+      <span>株式会社秋桜</span>
+    </a>
+    <nav aria-label="メイン">
+      <ul>
+        <li><a href="#service">法人のお客様</a></li>
+        <li><a href="#school">個人のお客様</a></li>
+        <li><a href="#why">選ばれる理由</a></li>
+        <li><a href="#flow">ご相談の流れ</a></li>
+        <li><a href="#about">会社概要</a></li>
+        <li><a href="#contact">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <section class="hero">
+    <div class="petals" aria-hidden="true">
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FFB7CF" opacity=".9"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FF9BBC" opacity=".85"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FFD0E0" opacity=".9"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FFA9C6" opacity=".85"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FFB7CF" opacity=".9"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FFD0E0" opacity=".85"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FF9BBC" opacity=".9"/></svg></span>
+      <span class="petal"><svg viewBox="0 0 20 20"><path d="M10 19 C 5 13, 5 6, 10 1 C 15 6, 15 13, 10 19 Z" fill="#FFB7CF" opacity=".85"/></svg></span>
+    </div>
+    <div class="wrap hero-grid">
+      <div>
+        <p class="eyebrow">AI導入支援・AI人材育成</p>
+        <h1>経営にも、<br>あなたの仕事にも、<br><em>AIの力</em>を。</h1>
+        <p class="lead">「AIが大事なのは分かる。でも、何から始めればいいか分からない」——株式会社秋桜は、その最初の一歩から使いこなせるようになるまで、経営者にも個人にも伴走するAIの会社です。オンライン対応で、全国どこからでも。</p>
+        <div class="hero-cta">
+          <a class="btn btn--fill" href="#contact">無料相談する</a>
+          <a class="btn" href="#service">サービスを見る</a>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg class="flower" viewBox="0 0 100 100">
+          <g fill="var(--pink-wash)" stroke="var(--pink)" stroke-width="1.6">
+            <g id="petal2">
+              <path d="M50 50 C 41 28, 41 14, 50 4 C 59 14, 59 28, 50 50 Z"/>
+            </g>
+            <use href="#petal2" transform="rotate(45 50 50)"/>
+            <use href="#petal2" transform="rotate(90 50 50)"/>
+            <use href="#petal2" transform="rotate(135 50 50)"/>
+            <use href="#petal2" transform="rotate(180 50 50)"/>
+            <use href="#petal2" transform="rotate(225 50 50)"/>
+            <use href="#petal2" transform="rotate(270 50 50)"/>
+            <use href="#petal2" transform="rotate(315 50 50)"/>
+            <circle cx="50" cy="50" r="6" fill="var(--pink)" stroke="none"/>
+          </g>
+        </svg>
+        <span class="tate">秋桜</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="services" id="service">
+    <div class="wrap">
+      <p class="eyebrow reveal">SERVICE — 法人のお客様へ</p>
+      <h2 class="reveal">経営者に、AIの顧問が付く。</h2>
+      <p class="lead reveal">難しい言葉は使いません。30分かかっていた作業が30秒で終わる瞬間を、まず目の前で見ていただきます。導入して終わりではなく、御社の業務が実際に変わるまで伴走します。</p>
+      <div class="svc-grid">
+        <div class="svc reveal">
+          <span class="tag">SEMINAR</span>
+          <h3>経営者向けAIセミナー</h3>
+          <p>AIで何ができるかを、実演を交えて分かりやすく。はじめの一歩に最適です。</p>
+        </div>
+        <div class="svc reveal">
+          <span class="tag">FREE CHECK</span>
+          <h3>AI診断</h3>
+          <p>御社の業務のどこにAIが効くのか、その場で実演しながら診断します。</p>
+        </div>
+        <div class="svc reveal">
+          <span class="tag">PROGRAM</span>
+          <h3>AI導入プログラム</h3>
+          <p>業務の棚卸しから、御社専用のプロンプト集・活用マニュアルの納品まで。経営者と1対1で伴走します。</p>
+        </div>
+        <div class="svc reveal">
+          <span class="tag">ADVISORY</span>
+          <h3>AIサポート(顧問)</h3>
+          <p>導入後も毎月伴走。めまぐるしいAIの変化の中から「御社に関係する分だけ」をお届けします。</p>
+        </div>
+        <div class="svc reveal">
+          <span class="tag">CREATION</span>
+          <h3>業務自動化・デジタル制作</h3>
+          <p>ホームページ・動画・業務ツールの制作、SNS運用の自動化など。「作って終わり」にせず運用まで支えます。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="school" id="school">
+    <div class="wrap school-grid">
+      <div>
+        <p class="eyebrow reveal">SCHOOL — 個人のお客様へ</p>
+        <h2 class="reveal">AIを、あなたの仕事の力に。</h2>
+        <p class="lead reveal">AIを仕事に活かしたい個人の方に、マンツーマンの実践型レッスンを提供します。講義を聞いて終わりではなく、「自分の仕事・やりたいこと」を題材に、手を動かして身につけます。対面・オンラインのどちらにも対応しています。</p>
+        <ul class="reveal">
+          <li>副業・独立に向けて、AIで新しい仕事を始めたい方</li>
+          <li>いまの仕事の効率を、AIで大きく上げたい方</li>
+          <li>ゼロから学び直したい方(年齢・経験は問いません)</li>
+        </ul>
+        <a class="btn btn--fill" href="#contact">まずは無料相談から</a>
+      </div>
+      <div class="quote reveal">
+        実際に60代から学び始めた受講生が、AIを使って新しい仕事に挑戦しています。遅すぎるということは、ありません。
+        <small>修了後は、学んだことをご自身の仕事に活かす方も、当社の事業をともに担う仲間になった方もいます。</small>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="wrap">
+      <p class="eyebrow reveal">REASON</p>
+      <h2 class="reveal">秋桜が選ばれる理由</h2>
+      <div class="why-grid">
+        <div class="why reveal">
+          <h3>「教えて終わり」にしない伴走型</h3>
+          <p>導入後・修了後も継続してサポート。プロンプト集・マニュアルなど、形に残る納品物をお渡しします。</p>
+        </div>
+        <div class="why reveal">
+          <h3>経営とお金が分かるAI支援</h3>
+          <p>ツールの話ではなく、売上・時間・人手というお客さまの課題から逆算してご提案します。</p>
+        </div>
+        <div class="why reveal">
+          <h3>説明より先に、実演</h3>
+          <p>目の前でやって見せます。「30分の作業が30秒で終わる」を体験してから、ご判断ください。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="flow" id="flow">
+    <div class="wrap">
+      <p class="eyebrow reveal">FLOW</p>
+      <h2 class="reveal">ご相談の流れ</h2>
+      <div class="flow-grid">
+        <div class="step reveal">
+          <h3>お問い合わせ</h3>
+          <p>「メールで相談する」ボタンからどうぞ。オンライン対応・全国どこからでもご相談いただけます。</p>
+        </div>
+        <div class="step reveal">
+          <h3>無料相談・AI診断</h3>
+          <p>売り込みはしません。まず現状をお聞きし、AIで何が変わるかをその場で実演します。</p>
+        </div>
+        <div class="step reveal">
+          <h3>ご提案</h3>
+          <p>御社・あなたに合う形を設計してご提案します。内容にご納得いただいてからのスタートです。</p>
+        </div>
+        <div class="step reveal">
+          <h3>伴走開始</h3>
+          <p>導入・学習・運用まで、最後まで伴走します。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap">
+      <p class="eyebrow reveal">COMPANY</p>
+      <h2 class="reveal">会社概要</h2>
+      <table class="reveal">
+        <tr><th>社名</th><td>株式会社秋桜(こすもす)</td></tr>
+        <tr><th>事業内容</th><td>AI導入支援/業務自動化・デジタル制作/AI人材育成</td></tr>
+        <tr><th>対応エリア</th><td>全国(オンライン対応)</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <p class="eyebrow reveal">CONTACT</p>
+      <h2 class="reveal">まずは、お話をお聞かせください。</h2>
+      <p class="lead reveal">無料相談・AI診断は、オンラインでも対面でも承ります。<br>「何を相談すればいいか分からない」という段階のご連絡も歓迎です。</p>
+      <div class="reveal">
+        <a class="btn btn--fill" href="mailto:cosmosarai721@gmail.com?subject=%E7%84%A1%E6%96%99%E7%9B%B8%E8%AB%87%E3%83%BB%E3%81%8A%E5%95%8F%E3%81%84%E5%90%88%E3%82%8F%E3%81%9B%EF%BC%88HP%E3%82%88%E3%82%8A%EF%BC%89" target="_blank" rel="noopener">メールで相談する</a>
+      </div>
+      <p class="contact-note reveal">ボタンを押すとメールソフトが開きます。1〜2営業日以内にご返信します。<br>
+        <button type="button" class="mail-alt" id="mailAlt">メールソフトが開かない場合はこちら</button>
+        <span id="mailFallback" hidden> 宛先: <span class="mail-addr" id="mailAddr"></span></span>
+      </p>
+    </div>
+  </section>
+
+</main>
+
+<footer>© 2026 株式会社秋桜</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) { e.target.classList.add("on"); io.unobserve(e.target); }
+    }
+  }, { threshold: 0.15 });
+  document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+  // メールソフトが開かない環境向けの逃げ道(アドレスは押されるまで画面に出さない)
+  const mailUser = "cosmosarai721";
+  const mailHost = "gmail.com";
+  document.getElementById("mailAlt").addEventListener("click", async () => {
+    const addr = mailUser + "@" + mailHost;
+    document.getElementById("mailAddr").textContent = addr;
+    document.getElementById("mailFallback").hidden = false;
+    const alt = document.getElementById("mailAlt");
+    try {
+      await navigator.clipboard.writeText(addr);
+      alt.textContent = "アドレスをコピーしました。";
+    } catch {
+      alt.textContent = "こちらのアドレスへお送りください。";
+    }
+  });
+</script>
+
+</body>
+</html>

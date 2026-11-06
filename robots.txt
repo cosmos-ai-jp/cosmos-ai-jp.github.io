@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cosmosarai721-collab.github.io/akizakura-hp/sitemap.xml
+Sitemap: https://cosmos-ai-jp.github.io/sitemap.xml
